@@ -22,10 +22,11 @@ class MY_Controller extends CI_Controller
 		ini_set('date.timezone','Asia/Shanghai');
 //		$this->session->set_userdata('openid', 'sdasdsdsdfs3sad903ekncaocasoj');
 //		$this->session->set_userdata('username', '测试名称');
+		$this->config->load('wxpay_config');
 	    if ( strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false ) {
 	    	if(!$this->session->userdata('openid')){
-	    		$appid="wx0c448fd615303346";
-				$secret="bda738c9309aa62fa25e891c0eca86ca";
+				$appid = $this->config->item('appid');
+				$secret = $this->config->item('appsecret');
 				if(empty($_GET['code'])){
 					$url = 'http://'.$_SERVER['SERVER_NAME'].$_SERVER["REQUEST_URI"];
 					$url = urlencode($url);
