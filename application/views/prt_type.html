@@ -1,0 +1,44 @@
+{{include file="head.html"}}
+ <ul class="bottom_menu_index"> 
+ 	<li><a href="{{site_url url='product/index'}}">
+        <img src="../res/images/icon_shouye.png"><span >商城首页</span><div class="bottom_line"></div>
+    </a>
+    </li>
+ 	<li><a href="{{site_url url='product/product_main'}}">
+        <img src="../res/images/icon_shangpin.png"><span >所有商品</span><div class="bottom_line "></div>
+    </a>
+    </li>
+ 	<li><a href="{{site_url url='product/product_type'}}"><img src="../res/images/icon_fenglei_on.png"><span class="color_on">分类</span><div class="bottom_line on"></div>
+    </a></li>
+ 	<li><img src="../res/images/icon_mine.png"><span>我的</span></li>
+ </ul>
+   <ul class="top_menu"> 
+   <div class="menu_content">产品类别<img src="/res/images/arrow_pre.png" class="back_icon"></div>
+ </ul>
+ </div>
+ <!--内容开始-->
+ <div class="main limit_padding_main">
+     <a href="{{site_url url='product/product_main'}}">
+    <div class="prt_select_all">所有商品<img src="../res/images/arrow_next.png" class="arrow_next"><div class="bg_div"></div></div>
+    </a>
+         <ul class="prt_select_list">
+
+             {{if $data!=1}}
+             {{foreach from=$data item=foo}}
+             <a href="{{site_url url='product/product_list'}}/{{$foo['id']}}">
+                <li>{{$foo['name']}}<img src="../res/images/arrow_next.png" class="arrow_next"><div class="bg_div color_gray"></div></li>
+             </a>
+             {{/foreach}}
+             {{/if}}
+
+    </ul>
+ </div>
+
+</body>
+<script type="text/javascript" src="../res/js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="../res/js/jquery-finger-0.1.0.min.js"></script>
+<script type="text/javascript" src="../res/js/topmenu.js"></script>
+<script type="text/javascript" src="../res/js/boxslide.js"></script>
+<script type="text/javascript" src="../res/js/lazyload.js"></script>
+
+</html>

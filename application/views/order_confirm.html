@@ -1,0 +1,129 @@
+{{include file="head.html"}}
+ <ul class="top_menu">
+	 <a href="{{site_url url='product/product_info'}}/{{$pid}}/{{$html_flag}}">
+   <div class="menu_content">确认订单<img src="/res/images/arrow_pre.png" class="back_icon"></div>
+		 </a>
+ </ul>
+<!--选择地址开始-->
+<div class="address_list">
+	<div class="header">
+		<img src="/res/images/logo.jpg" class="img_logo">
+	</div>
+	<div class="sladdress_list">
+		<ul>
+			{{if $data['address']!=1}}
+			{{foreach from=$data['address'] item=foo}}
+			<li>
+				<div class="order_address limit_padding">
+					<img src="/res/images/icon_yes.png" class="icon_next {{if $foo['default']!=1}} hide {{/if}}">
+					<div class="sel_address on">
+						<div class="sel_address_top"><span class="mail_name">
+                              {{$foo['name']}}
+						</span><span class="mail_tel">{{$foo['phone']}}</span></div>
+						<div class="sel_address_bottom">
+							{{if $foo['default']==1}}<span class="first_do">[默认]</span>{{/if}}
+							<input type="hidden"  value="{{$foo['id']}}">
+							收货地址：<span class="address_eq">{{$foo['f_name']}}{{$foo['g_name']}}{{$foo['h_name']}}{{$foo['address']}}</span></div>
+					</div>
+				</div>
+			</li>
+			{{/foreach}}
+			{{/if}}
+		</ul>
+	</div>
+	<a href="{{site_url url='product/add_address'}}/3/{{$pid}}/{{$html_flag}}"> <div class="sladdress_add">添加地址</div></a>
+</div>
+ <!--内容开始-->
+
+<form id="save_form" method="post" action="{{site_url url='product/save_order_one'}}">
+	<input type="hidden" name="pid" value="{{$pid}}">
+	<input type="hidden" name="price" value="{{$data['item']['de_price']|default:'0'}}">
+	<input type="hidden" name="qty" value="{{$qty|default:'0'}}">
+	<input type="hidden" name="pd_id" value="{{$pd_id}}">
+ <div class="main limit_padding_main" >
+	 <div class="order_address" id="address">
+		 <img src="/res/images/icon_dibiao.png" class="icon_dibiao">
+		 <img src="/res/images/arrow_next.png" class="icon_next">
+		 <!-- 		<span class="sel_address_title">请选择您的收货地址</span>-->
+		 <div class="sel_address on" id="mail_address_show">
+			 <div class="sel_address_top"><span class="mail_name">
+				  {{if $data['default_address']!=1}}
+				 {{$data['default_address']['name']}}
+				  {{/if}}
+			 </span><span class="mail_tel"></span></div>
+			 <div class="sel_address_bottom">
+				 <input type="hidden" name="address_id" value="{{if $data['default_address']!=1}} {{$data['default_address']['id']}}{{/if}}">
+				 收货地址：<span class="address_eq">
+				  {{if $data['default_address']!=1}}
+				 {{$data['default_address']['f_name']}} {{$data['default_address']['g_name']}}{{$data['default_address']['h_name']}} {{$data['default_address']['address']}}
+				  {{/if}}
+			 </span></div>
+		 </div>
+	 </div>
+    <ul class="cart_list limit_shadow">
+		{{if $data['item']!=1}}
+		<li class="order_cf">
+			<div class="cart_pic"><img src="/uploadfiles/pics/{{$data['item']['bg_pic']}}"></div>
+			<span class="cart_title">{{$data['item']['name']}}</span>
+			<span class="cart_spec">{{$data['item']['de_size']}}</span>
+			<div class="cart_price">
+				<span class="cart_price_show">￥<span class="price_num">{{$data['item']['de_price']}}</span></span>
+				<span class="cart_num_show">x <span class="prt_num">{{$qty}}</span></span>
+			</div>
+		</li>
+		{{/if}}
+    </ul>
+	 <div id="remark_div" class="remarks">
+		 <span class="remark_title">留言备注</span>
+		 <textarea name="remark" cols="" rows="" class="remark_content" placeholder="请输入..."></textarea>
+	 </div>
+ </div>
+</form>
+  <!--底部菜单开始-->
+  <ul class="bottom_menu">
+  	<li style=" position:relative; width: 66%; background: #ffffff; height: 2.5rem;">
+  		<span class="price_sum">合计：<font>￥</font><span class="price_sum_num">0.0</span></span>
+  	</li>
+  	<li id="order_btn" style=" position:relative; width: 34%;" class="limit_w_col_b limit_w_font_b">结算(<span class="sl_ck">1</span>)</li>
+  </ul>
+</body>
+<script type="text/javascript" src="/res/js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="/res/js/jquery-finger-0.1.0.min.js"></script>
+<script type="text/javascript" src="/res/js/topmenu.js"></script>
+<script type="text/javascript" src="/res/js/boxslide.js"></script>
+<script type="text/javascript" src="/res/js/lazyload.js"></script>
+<script type="text/javascript" src="/res/js/price_order.js"></script>
+<script type="text/javascript">
+$(function(){
+    $(".sladdress_list li").each(function(){
+    	$(this).click(function(){
+    		var v_address=$(this).find(".address_eq").text();
+    		var v_name=$(this).find(".mail_name").text();
+    		var v_tel=$(this).find(".mail_tel").text();
+    		$(this).find(".icon_next").removeClass("hide");
+    		$(this).siblings().find(".icon_next").addClass("hide");
+    		$("#mail_address_show").find(".address_eq").text(v_address);
+    		$("#mail_address_show").find(".mail_name").text(v_name);
+    		$("#mail_address_show").find(".mail_tel").text(v_tel);
+    		$(".address_list").removeClass("pt-page-moveFromRight");   		
+    	});
+    });
+    $("#address").click(function(){
+    	    $(".address_list").addClass("pt-page-moveFromRight");
+    });
+	var _price = "{{$data['item']['de_price']|default:'0'}}";
+	var _qty = "{{$qty|default:'0'}}";
+	var all_price=parseInt(_qty)*parseFloat(_price);
+	$('.price_sum_num').html(all_price);
+
+	$("#order_btn").click(function () {
+		var address_id = $("#mail_address_show").find('input').eq(0).val();
+		if (address_id==""){
+			alert('请选择地址！');
+		}else{
+			$("#save_form").submit();
+		}
+	})
+});
+</script>
+</html>

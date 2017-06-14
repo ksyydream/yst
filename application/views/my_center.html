@@ -1,0 +1,71 @@
+{{include file="head.html"}}
+<ul class="bottom_menu_index">
+    <li>
+        <a href="{{site_url url='product/index'}}">
+            <img src="/res/images/icon_shouye.png"><span>商城首页</span><div class="bottom_line"></div>
+        </a>
+    </li>
+    <li> <a href="{{site_url url='product/product_main'}}">
+        <img src="/res/images/icon_shangpin.png"><span>所有商品</span><div class="bottom_line"></div>
+    </a></li>
+    <li> <a href="{{site_url url='product/product_type'}}">
+        <img src="/res/images/icon_fenglei.png"><span>分类</span><div class="bottom_line"></div>
+    </a></li>
+    <li><a href="{{site_url url='product/my_center'}}">
+        <img src="../res/images/icon_mine_on.png"><span  class="active_top color_on">我的</span><div class="bottom_line on"></div>
+    </a></li>
+</ul>
+<!----/注册页面---->
+   <div class="admin_header " >
+      <img src="/res/images/taste_pic.png" class="img_wx">
+      <div class="admin_header_pic"><img src="/res/images/pic.jpg"></div>
+      <div class="admin_header_info">
+         <div class="admin_name">
+            <span class="admin_name">欢迎您，{{$username}}</span>
+             <a href="{{site_url url='product/my_info'}}">
+                 <span class="admin_edit">修改资料</span>
+             </a>
+
+         </div>
+         <span class="admin_point hide">积分：100</span>
+      </div>
+   </div>
+   <ul class="admin_type">
+       <li>
+           <a href="{{site_url url='product/status_order/1'}}">
+            <div class="show"><i class="show_icon limit_do_a">{{if $data['status1']!=0}}<span class="num_icon">{{$data['status1']}}</span>{{/if}}</i></div><span class="user_item">待付款</span>
+            </a>
+       </li>
+
+      <li>
+          <a href="{{site_url url='product/status_order/2'}}">
+          <div class="show"><i class="show_icon limit_do_b">{{if $data['status2']!=0}}<span class="num_icon">{{$data['status2']}}</span>{{/if}}</i></div><span class="user_item">待成团</span>
+      </a>
+      </li>
+       <li><a href="{{site_url url='product/status_order/3'}}">
+           <div class="show"><i class="show_icon limit_do_c">{{if $data['status3']!=0}}<span class="num_icon">{{$data['status3']}}</span>{{/if}}</i></div><span class="user_item">待发货</span>
+       </a></li>
+      <li><a href="{{site_url url='product/status_order/4'}}">
+          <div class="show"><i class="show_icon limit_do_d">{{if $data['status4']!=0}}<span class="num_icon">{{$data['status4']}}</span>{{/if}}</i></div><span class="user_item">待收货</span>
+     </a></li>
+      <li><a href="{{site_url url='product/status_order/5'}}">
+          <div class="show"><i class="show_icon limit_do_e">{{if $data['status6']!=0}}<span class="num_icon">{{$data['status6']}}</span>{{/if}}</i></div><span class="user_item">待评价</span>
+      </a></li>
+   </ul>
+   <ul class="admin_menu">
+   	  <li><a href="{{site_url url='product/status_order'}}"><i class="user_menu_icon limit_m_a"></i><span class="user_menu_name">我的拼团</span></a></li>
+      <li><a href="{{site_url url='product/my_house'}}"><i class="user_menu_icon limit_m_a"></i><span class="user_menu_name">我的收藏</span></a></li>
+      <li><a href="{{site_url url='product/my_address'}}"><i class="user_menu_icon limit_m_b"></i><span class="user_menu_name">管理收货地址</span></a></li>
+   </ul>   
+ </div>
+
+</body>
+<script type="text/javascript" src="/res/js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="/res/js/jquery-finger-0.1.0.min.js"></script>
+<script type="text/javascript" src="/res/js/boxslide.js"></script>
+<script type="text/javascript" src="/res/js/lazyload.js"></script>
+<script type="text/javascript">
+$(function(){
+});
+</script>
+</html>

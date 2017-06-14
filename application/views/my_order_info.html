@@ -1,0 +1,83 @@
+{{include file="head.html"}}
+ <ul class="top_menu">
+	 <a href="{{site_url url='product/status_order'}}/{{$status}}">
+   <div class="menu_content">我的订单<img src="/res/images/arrow_pre.png" class="back_icon"></div>
+		 </a>
+ </ul>
+ <!--内容开始-->
+ <div class="main" style="margin-top:0; padding-bottom: 2.6rem;">
+    <div class="order_list limit_shadow">
+		{{if $data['main']!=1}}
+		<div class="order_num">订单号：{{$data['main']['num']}}</div>
+		{{if $data['detail']!=1}}
+		{{foreach from=$data['detail'] item=foo}}
+		<ul class="myorder_list">
+			<li>
+				<div class="cart_pic"><img src="/uploadfiles/pics/{{$foo['bg_pic']}}"></div>
+				<span class="cart_title">{{$foo['pro_name']}}</span>
+				<span class="cart_spec">{{$foo['de_size']}}</span>
+				<div class="cart_price">
+					<span class="cart_price_show">￥<span class="price_num">{{$foo['price']}}</span></span>
+					<span class="cart_num_show">x <span class="prt_num">{{$foo['qty']}}</span></span>
+				</div>
+			</li>
+		</ul>
+		{{/foreach}}
+		{{/if}}
+		<div class="order_info">
+			<span class="myorder_title">消费码：<font class="num_pay">{{$data['main']['order_num']}}</font></span>
+			<span class="myorder_title">下单时间：{{$data['main']['cdate']}}</span>
+			<span class="myorder_title">联系人:{{$data['main']['add_name']}}</span>
+			<span class="myorder_title">手机：{{$data['main']['phone']}}</span>
+			<span class="myorder_title">收货地址：{{$data['main']['f_name']}}{{$data['main']['g_name']}}{{$data['main']['h_name']}}{{$data['main']['address']}}</span>
+			<span class="myorder_title">备注：{{$data['main']['remark']}}</span>
+			<span class="myorder_title">订单状态：<font class="order_state">
+				{{if $data['main']['status']==1}}待付款{{/if}}
+				{{if $data['main']['status']==2}}待发货{{/if}}
+				{{if $data['main']['status']==3}}待收货{{/if}}
+				{{if $data['main']['status']==4}}待评论{{/if}}
+				{{if $data['main']['status']==5}}退款中{{/if}}
+				{{if $data['main']['status']==6}}已退款{{/if}}
+				{{if $data['main']['status']==7}}已评价{{/if}}
+				</font>
+
+			</span>
+			{{if $data['main']['status']==1}}
+			<a  class="order_more_btn limit_bt_rt" href="{{site_url url='product/pay1'}}/{{$data['main']['id']}}">付款</a><br/>
+			{{/if}}
+
+		</div>
+		{{/if}}
+    </div>
+ 	
+    
+ </div>
+
+</body>
+<script type="text/javascript" src="/res/js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="/res/js/jquery-finger-0.1.0.min.js"></script>
+<script type="text/javascript" src="/res/js/topmenu.js"></script>
+<script type="text/javascript" src="/res/js/boxslide.js"></script>
+<script type="text/javascript" src="/res/js/lazyload.js"></script>
+<script type="text/javascript" src="/res/js/price_order.js"></script>
+<script type="text/javascript">
+$(function(){
+    $(".sladdress_list li").each(function(){
+    	$(this).click(function(){
+    		var v_address=$(this).find(".address_eq").text();
+    		var v_name=$(this).find(".mail_name").text();
+    		var v_tel=$(this).find(".mail_tel").text();
+    		$(this).find(".icon_next").removeClass("hide");
+    		$(this).siblings().find(".icon_next").addClass("hide");
+    		$("#mail_address_show").find(".address_eq").text(v_address);
+    		$("#mail_address_show").find(".mail_name").text(v_name);
+    		$("#mail_address_show").find(".mail_tel").text(v_tel);
+    		$(".address_list").removeClass("pt-page-moveFromRight");   		
+    	});
+    });
+    $("#address").click(function(){
+    	    $(".address_list").addClass("pt-page-moveFromRight");
+    });
+});
+</script>
+</html>

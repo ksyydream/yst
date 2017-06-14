@@ -1,0 +1,250 @@
+{{include file="head.html"}}
+<!--产品属性选择开始-->
+<div class="prt_property">
+	<div class="prt_property_bg"></div>
+	<div class="prt_property_info">
+	   <img src="/res/images/icon_close.png" class="close_btm">
+       <span class="open_slt_title">产品标题</span>
+        <ul class="info_ul_">
+            <li>
+                <span class= open_slt_price">直购<zg id="zg_price"></zg></span>
+            </li>
+            <li>
+                <span class="open_slt_t_price">团购<zg1 id="tg_price"></zg1></span>
+            </li>
+        </ul>
+
+
+       <span class="open_slt_protitle">选择属性</span>
+       <div class="open_slt_content">
+       	  <ul>
+              {{if $data['details']!=1}}
+              {{foreach from=$data['details'] item=foo}}
+              <li><flag>{{$foo['size']}}</flag>
+                  <detailid style="display: none">{{$foo['id']}}</detailid>
+              <input type="hidden" name="price" value="{{$foo['price']}}">
+                  <input type="hidden" name="t_price" value="{{$foo['t_price']}}">
+              </li>
+              {{/foreach}}
+              {{/if}}
+       	  </ul>
+       </div>
+       <div class="open_slt_num">
+       	  <span class="open_slt_protitle">购买数量</span>
+       	  <div class="btn_add" >
+		    <a href="#" class="arrow click_subtract"><img src="/res/images/icon_jia.jpg"></a>
+		        <span class="viewnum" id="qty_v" style="display:none;">1</span>
+		        <input type="text" id="buy_qty"  name="qty" value="1" class="viewnum qty" style="width:30px; padding:0">
+		    <a href="#" class="arrow click_add"><img src="/res/images/icon_jian.jpg"></a>
+	      </div>
+       </div>
+       <div class="open_slt_submit">确定</div>
+	</div>
+</div>
+<!--头部开始-->
+ <ul class="top_menu">
+
+     {{if $html_flag==-1}}
+         <a href="{{site_url url='product/index'}}"><div class="menu_content">商场首页<img src="/res/images/arrow_pre.png" class="back_icon"></div></a>
+     {{/if}}
+     {{if $html_flag==-2}}
+     <a href="{{site_url url='product/product_main'}}"><div class="menu_content">所有商品<img src="/res/images/arrow_pre.png" class="back_icon"></div></a>
+     {{/if}}
+     {{if $html_flag==-3}}
+     <a href="{{site_url url='product/my_house'}}"><div class="menu_content">我的收藏<img src="/res/images/arrow_pre.png" class="back_icon"></div></a>
+     {{/if}}
+     {{if $html_flag > 0}}
+     <a href="{{site_url url='product/product_list'}}/{{$html_flag}}"><div class="menu_content">{{$data['title']}}<img src="/res/images/arrow_pre.png" class="back_icon"></div></a>
+     {{/if}}
+
+ </ul>
+ <!--内容开始-->
+ <div class="main limit_padding_main">
+ 	<!--产品图片滚动开始-->
+    <div class="slider7" id="slider_div">
+
+    </div>
+    <div class="prt_header">
+      <h3>{{if $data['info']!=1}}{{$data['info']['name']}}{{/if}}</h3>
+        <a class="am-badge am-badge-primary am-round" style="float: left;font-size:0.8rem">直购价</a>
+      <span class="price_all">{{if $data['info']!=1}}{{$data['info']['price']}}{{/if}}</span>
+    </div>
+     <div class="prt_header">
+         <a class="am-badge am-badge-danger am-round" style="float: left;font-size:0.8rem">团购价</a>
+         <span class="t_price_all">{{if $data['info']!=1}}{{$data['info']['t_price']}}{{/if}}</span>
+     </div>
+    <div class="ems">
+         包邮</div>
+    <div class="prt_type"><img src="/res/images/arrow_next.png" class="arrow_next" style="top: 0.85rem;"></div>
+     <div class="prt_info limit_prt_padding">
+         <ul class="prt_info_title">
+             <li class="active_on">宝贝详情</li>
+             <li>宝贝评价</li>
+         </ul>
+         <div class="tab_box">
+             <!--产品详情开始-->
+             <div class="prt_tab_list on">
+                 <p class="prt_tab_info"> {{if $data['info']!=1}}{{$data['info']['desc']}}{{/if}}</p>
+             </div>
+             <!--产品评论开始-->
+             <div class="prt_tab_list  limit_feedback_padding">
+                 <span class="feedback_num">共有<font>{{$data['comment_num']}}</font>条评论</span>
+                 <ul class="pinglun_list">
+                     {{if $data['comment']!=1}}
+                     {{foreach from=$data['comment'] item=doo}}
+                     <li>
+                         <span class="pinglun_name"><font>{{$doo['username']}}</font>({{$doo['cdate']}}):</span>
+                         <p class="pinglun_info">{{$doo['content']}}</p>
+                         <div class="wx_pic"><img src="/res/images/taste_pic.png"></div>
+                     </li>
+                     {{/foreach}}
+                     {{/if}}
+                 </ul>
+             </div>
+         </div>
+     </div>
+ </div>
+ 
+   <!--底部菜单开始-->
+  <ul class="bottom_menu">
+  	<!--<a href="{{site_url url='product/show_cart'}}"><li class="limit_w_bt_a limit_w_col_c limit_bd_bt_a"><div class="bt_img"><img src="/res/images/bt_cart1.png"></div><span class="bt_font">购物车</span></li></a>
+    -->
+      <a href="{{site_url url='product/index'}}"><li class="limit_w_bt_a limit_w_col_c limit_bd_bt_a"><div class="bt_img"><img src="/res/images/bt_cart1.png"></div><span class="bt_font">首页</span></li></a>
+    <li class="limit_w_bt_a limit_w_col_c"><div class="bt_img" id="save_house"><img src="/res/images/bt_sc.png"></div><span class="bt_font" >收藏</span></li>
+  	<li class="limit_w_bt_b limit_w_col_a limit_w_font_b" id="save_cart">单独购买</li>
+  	<li class="limit_w_bt_b limit_w_col_b limit_w_font_b" id="buy_btn">立即开团</li>
+  </ul>
+
+</body>
+<script type="text/javascript" src="/res/js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="/res/js/jquery-finger-0.1.0.min.js"></script>
+<script type="text/javascript" src="/res/js/topmenu.js"></script>
+<script type="text/javascript" src="/res/js/boxslide.js"></script>
+<script type="text/javascript" src="/res/js/lazyload.js"></script>
+<script type="text/javascript" src="/res/js/price_order.js"></script>
+<script type="text/javascript">
+$(function(){
+
+          $(window).load(function(){
+          	$(".bx-wrapper").css("margin","0.5rem auto 0 auto");
+          });
+          $(".prt_type").on('tap',function(){
+          	 $(".prt_property").addClass("on");
+          	 $(".prt_property_info").addClass("pt-page-moveFromBottom");
+          	 
+          });
+          $(".prt_property_bg,.close_btm").on('tap',function(){
+          	 $(".prt_property").removeClass("on");
+          	 $(".prt_property_info").removeClass("pt-page-moveFromBottom");
+          });
+
+    $(".open_slt_content li").each(function(){
+        $(this).on('tap',function(){
+            $(this).addClass("order_active");
+            $(this).siblings().removeClass("order_active");
+        });
+    });
+    $(".prt_info_title li").each(function(index){
+        $(this).on('tap',function(){
+            $(this).addClass("active_on");
+            $(this).siblings().removeClass("active_on");
+            $(".prt_tab_list").eq(index).addClass("on");
+            $(".prt_tab_list").eq(index).siblings().removeClass("on");
+        });
+
+    });
+
+   $(".open_slt_content li").eq(0).addClass("order_active");
+    var minprice =$(".open_slt_content li").eq(0).find('input').eq(0).val();
+    var t_price =$(".open_slt_content li").eq(0).find('input').eq(1).val();
+    $("#zg_price").html(minprice);
+    $("#tg_price").html(t_price);
+    $(".prt_type").html($(".open_slt_content li").eq(0).find('flag').html()+'<img src="/res/images/arrow_next.png" class="arrow_next" style="top: 0.85rem;">')
+
+          $(".open_slt_content li").each(function(){
+          	$(this).on('tap',function(){
+          		$(this).addClass("order_active");
+          		$(this).siblings().removeClass("order_active");
+                var price =$(this).find('input').eq(0).val();
+                //$(".open_slt_price").html(price);
+                $("#zg_price").html(price);
+                var tprice =$(this).find('input').eq(1).val();
+                $("#tg_price").html(tprice);
+          	});
+          });
+
+    $(".open_slt_submit").click(function () {
+        var _qty = $("#buy_qty").val();
+        //var _price=$(".open_slt_price").html();
+        var _price=$("#zg_price").html();
+        var _tprice=$("#tg_price").html();
+        all_price=parseInt(_qty)*parseFloat(_price);
+        t_all_price=parseInt(_qty)*parseFloat(_tprice);
+        $(".price_all").html(all_price);
+        $(".t_price_all").html(t_all_price);
+        $(".prt_type").html( $(".order_active").eq(0).find('flag').html()+'<img src="/res/images/arrow_next.png" class="arrow_next" style="top: 0.85rem;">')
+        $(".prt_property").removeClass("on");
+        $(".prt_property_info").removeClass("pt-page-moveFromBottom");
+
+    })
+    $.getJSON("{{site_url url='ajax/get_pics'}}/{{if $data['info']!=1}}{{$data['info']['folder']}}{{/if}}",function(data){
+        html='';
+        if (data['img']!=1){
+            data['img'].forEach(function (item) {
+              html+='<div class="slide"><img src="/uploadfiles/pics/'+data['time']+'/'+item+'"></div>'
+                //alert(item[0]);
+            })
+            $(".slider7").html(html);
+
+        }
+        else{
+        }
+        $('.slider7').bxSlider({
+            slideWidth: 640,
+            infiniteLoop: true,
+            controls: false,
+            auto: true,
+            autoStart: true,
+        });
+    });
+    
+    $("#save_cart").click(function () {
+        var openid='123';
+        var save_qty=$("#buy_qty").val();
+        var pid="{{if $data['info']!=1}}{{$data['info']['id']}}{{/if}}";
+        var pd_id=$(".open_slt_content li").filter('.order_active').eq(0).find('detailid').html();
+        $.getJSON("{{site_url url='ajax/save_cart'}}/"+openid+"/"+save_qty+"/"+pid+"/"+pd_id,function(data){
+         if (data==1){
+                alert('加入成功！');
+            }else{
+                 alert('加入失败！');
+            }
+        });
+    })
+
+    $("#save_house").click(function () {
+
+        var save_qty=$("#buy_qty").val();
+        var pid="{{if $data['info']!=1}}{{$data['info']['id']}}{{/if}}";
+        var pd_id=$(".open_slt_content li").filter('.order_active').eq(0).find('detailid').html();
+        $.getJSON("{{site_url url='ajax/save_house'}}/"+pid,function(data){
+            if (data==1){
+                alert('收藏成功！');
+            }else if(data==2){
+                alert('已收藏！');
+            }else{
+                alert('收藏失败!');
+            }
+        });
+    })
+
+    $("#buy_btn").click(function(){
+        var save_qty=$("#buy_qty").val();
+        var pid="{{if $data['info']!=1}}{{$data['info']['id']}}{{/if}}";
+        var pd_id=$(".open_slt_content li").filter('.order_active').eq(0).find('detailid').html();
+        window.location.href="{{site_url url='product/buy_pro'}}/"+pid+'/'+pd_id+'/'+save_qty+'/{{$html_flag}}';
+
+    })
+});
+</script>
+</html>
