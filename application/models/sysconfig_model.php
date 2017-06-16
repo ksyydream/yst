@@ -30,8 +30,9 @@ class Sysconfig_model extends MY_Model
         if($user_info){
             $this->session->set_userdata('username',$user_info['name']);
         }else{
-            $appid="wx0c448fd615303346";
-            $secret="bda738c9309aa62fa25e891c0eca86ca";
+            $this->config->load('wxpay_config');
+            $appid = $this->config->item('appid');
+            $secret = $this->config->item('appsecret');
             $openid = $openid;
             $rs = file_get_contents("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid={$appid}&secret={$secret}");
             $rs=json_decode($rs,true);

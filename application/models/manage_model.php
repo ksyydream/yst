@@ -110,6 +110,7 @@ class Manage_model extends MY_Model
 			'cdate'=>date('Y-m-d H:i:s'),
 			'desc'=>$this->input->post('desc'),
 			'folder'=>$this->input->post('folder'),
+			'tuan_num'=>$this->input->post('tuan_num'),
 			'bg_pic'=>$this->input->post('is_bg'),
 			'status'=>$this->input->post('status'),
 			'recommend'=>$this->input->post('recommend'),
@@ -118,6 +119,7 @@ class Manage_model extends MY_Model
 
 		$price = $this->input->post('price');
 		$t_price = $this->input->post('t_price');
+		$kc = $this->input->post('kc');
 		$size = $this->input->post('size');
 		$this->db->trans_start();
 
@@ -139,6 +141,7 @@ class Manage_model extends MY_Model
 				'size'=>$v,
 				'price'=>$price[$k],
 				't_price'=>$t_price[$k],
+				'kc'=>$kc[$k],
 			);
 			$this->db->insert('product_detail',$data_line);
 		}

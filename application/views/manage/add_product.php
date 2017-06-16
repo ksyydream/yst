@@ -16,7 +16,13 @@
         			</dd>
 
         		</dl>
+				<dl>
+					<dt>成团所需人数：</dt>
+					<dd>
+						<input name="tuan_num" type="text" class="required" value="<?php if(!empty($tuan_num)) echo $tuan_num;?>" />
+					</dd>
 
+				</dl>
 				<dl>
 					<dt>类别：</dt>
 					<dd><select class="combox" name="type">
@@ -92,6 +98,7 @@
 						<th type="text" width="80" name="size[]"  fieldClass="required" size="30">规格</th>
 						<th type="file_class" name="price[]" fieldClass="required" size="10" width="120">直购价</th>
 						<th type="file_class" name="t_price[]" fieldClass="required" size="10" >团购价</th>
+						<th type="file_class" name="kc[]" fieldClass="required" size="10" >最大建团数量</th>
 						<th type="del" width="30">操作</th>
 					</tr>
 					</thead>
@@ -102,6 +109,7 @@
 								<td><input type="text" class="required" size='30' name="size[]" value="<?php echo $v->size?>"></td>
 								<td><input type="text" class="required" size='10' name="price[]" value="<?php echo $v->price?>"></td>
 								<td><input type="text" class="required" size='10' name="t_price[]" value="<?php echo $v->t_price?>"></td>
+								<td><input type="text" class="required" size='10' name="kc[]" value="<?php echo $v->kc?>"></td>
 								<td><a class="btnDel" href="javascript:$('#olda<?php echo $v->id;?>').remove();void(0);"><span>删除</span></a></td>
 							</tr>
 						<?php endforeach;?>
@@ -129,6 +137,14 @@
 </div>
 
 <script>
+	$("[name='tuan_num']").keyup(function () {
+		$(this).val($(this).val().replace(/[^0-9]/g, ''));
+	}).blur(function(){
+		$(this).val($(this).val().replace(/[^0-9]/g, ''));
+	}).bind("paste", function () {  //CTR+V事件处理
+		$(this).val($(this).val().replace(/[^0-9]/g, ''));
+	}).css("ime-mode", "disabled"); //CSS设置输入法不可用
+
 $("#fileField").change(function(){
 	var objUrl = getObjectURL(this.files[0]);
 	if (objUrl) {
